@@ -1,5 +1,7 @@
 # ⚡ Reliable RAG Pipeline — High-Accuracy Retrieval-Augmented Generation
 
+![alt text](image.png)
+
 ## 🧠 What is Reliable RAG?
 
 **Reliable RAG** is an enhanced Retrieval-Augmented Generation pipeline designed to produce **accurate, grounded, and trustworthy responses** by combining:
@@ -57,8 +59,6 @@ but **robust, validated, and dependable**.
 
 
 ---
-
-![alt text](image.png)
 
 # 🚀 Features
 
