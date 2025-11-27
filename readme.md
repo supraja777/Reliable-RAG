@@ -1,136 +1,143 @@
-⚡ Reliable RAG Pipeline — High-Accuracy Retrieval-Augmented Generation
-🧠 What is Reliable RAG?
+# ⚡ Reliable RAG Pipeline — High-Accuracy Retrieval-Augmented Generation
 
-Reliable RAG is an enhanced Retrieval-Augmented Generation pipeline designed to produce accurate, grounded, and trustworthy responses by combining:
+## 🧠 What is Reliable RAG?
 
-High-quality embeddings
+**Reliable RAG** is an enhanced Retrieval-Augmented Generation pipeline designed to produce **accurate, grounded, and trustworthy responses** by combining:
 
-Strong document retrieval
+* ✔ High-quality embeddings
+* ✔ Strong document retrieval
+* ✔ LLM-based document relevance grading
+* ✔ Post-generation hallucination detection
 
-LLM-based document relevance grading
-
-Post-generation hallucination detection
-
-Unlike traditional RAG—which simply retrieves chunks and feeds them to an LLM—Reliable RAG adds two layers of verification to ensure correctness at both the input and output stages.
+Unlike traditional RAG — which simply retrieves chunks and feeds them to an LLM — **Reliable RAG adds two validation layers** to ensure correctness at both the input and output stages.
 
 It is ideal for:
 
-Knowledge bases
+* Knowledge bases
+* Research assistants
+* Document Q&A systems
+* Legal, scientific, or enterprise settings
+* Any environment where hallucinations are unacceptable
 
-Research assistants
+---
 
-Document Q&A
+## 🔍 Advantages Over Traditional RAG
 
-Legal, scientific, and enterprise contexts
+Traditional RAG is useful, but it has some major weaknesses.
 
-Any application where hallucinations are unacceptable
+The table below shows how **Reliable RAG fixes them**:
 
-🔍 Advantages Over Traditional RAG
+| Problem in Traditional RAG                         | How Reliable RAG Fixes It                             |
+| -------------------------------------------------- | ----------------------------------------------------- |
+| Retrieves incorrect or semantically weak documents | LLM-based relevance grading filters irrelevant chunks |
+| Allows hallucinated answers                        | Hallucination detection verifies grounding            |
+| No quality control                                 | Dual evaluation: retrieval grading + output grading   |
+| Depends completely on vector similarity            | Adds reasoning-based semantic validation              |
+| Opaque pipeline                                    | Transparent logs at each stage                        |
 
-Traditional RAG is powerful, but it suffers from several limitations:
+### ✔ Reliable RAG = Controlled + Verified + Accurate
 
-Problem in Traditional RAG	How Reliable RAG Fixes It
-Retrieves incorrect / semantically weak documents	LLM-based relevance grading filters irrelevant chunks
-Allows hallucinated answers	Hallucination detection checks whether output is grounded
-No guardrails on quality	Double evaluation: on retrieval + post-generation
-Dependent solely on vector similarity	Adds LLM semantic validation for higher accuracy
-No transparency in pipeline	Prints scores + documents at every stage
-✔ Reliable RAG = Controlled + Verified + Accurate
+By validating both retrieved documents *and* final outputs, Reliable RAG significantly reduces errors and produces **trustworthy responses consistently**.
 
-By validating both retrieved input documents and final outputs, Reliable RAG significantly reduces errors and produces trustworthy responses consistently.
+---
 
-📘 Project: Reliable RAG with LangChain, Chroma, HuggingFace & Groq
+# 📘 Project: Reliable RAG with LangChain, Chroma, HuggingFace & Groq
 
-This project implements a complete Reliable RAG pipeline using:
+This project implements a fully verified **Reliable RAG** pipeline using:
 
-Web document ingestion (WebBaseLoader)
+* 🌐 Web document ingestion (WebBaseLoader)
+* ✂️ Smart text splitting (RecursiveCharacterTextSplitter)
+* 🔤 HuggingFace MiniLM embeddings
+* 🗂️ Chroma vector database
+* 🚀 Groq Llama 3.1 LLM for relevance grading & answering
+* 🛡️ Hallucination detection using an additional Groq LLM pass
 
-Text splitting (RecursiveCharacterTextSplitter)
+The goal is to build a RAG system that is not just functional —
+but **robust, validated, and dependable**.
 
-HuggingFace MiniLM embeddings
 
-Chroma vector database
+---
 
-Groq Llama 3.1 LLM for relevance grading
+![alt text](image.png)
 
-Groq hallucination checker for final answer validation
+# 🚀 Features
 
-It demonstrates how to build a RAG system that is not just functional, but robust and dependable.
+### 1️⃣ Web Scraping & Document Loading
 
-🚀 Features
-1️⃣ Web Scraping & Document Loading
+Automatically loads multiple DeepLearning.ai articles on Agentic Design Patterns.
 
-Pulls multiple articles from DeepLearning.ai’s "Agentic Design Patterns" series.
+### 2️⃣ Smart Document Chunking
 
-2️⃣ Smart Document Chunking
-
-Uses:
-
-chunk_size = 1000
+```
+chunk_size   = 1000
 chunk_overlap = 200
+```
 
+Optimized for context retention.
 
-for contextual, retrieval-friendly splits.
+### 3️⃣ High-Quality Embeddings
 
-3️⃣ High-Quality Embeddings
+Uses: **sentence-transformers/all-MiniLM-L6-v2**
+Fast, lightweight, and highly accurate.
 
-Using sentence-transformers/all-MiniLM-L6-v2, a fast and accurate embedding model.
+### 4️⃣ Chroma Vector Store
 
-4️⃣ Chroma Vector Store
+Efficient, persistent similarity search.
 
-Stores embedded documents for fast and scalable similarity search.
+### 5️⃣ LLM-Based Relevance Grading
 
-5️⃣ LLM-Based Relevance Grading
+Each retrieved chunk is validated by a Groq-hosted LLM.
 
-Each retrieved document is evaluated by a Groq LLM to ensure semantic relevance.
+### 6️⃣ Final Answer Generation
 
-6️⃣ Final Answer Generation
+Concise, factual responses using **Llama 3.1-8B (Groq)**.
 
-Produces concise, grounded answers using Llama 3.1 (Groq).
+### 7️⃣ Hallucination Detection
 
-7️⃣ Hallucination Detection
+Ensures the generated answer is grounded in provided documents.
 
-Checks whether the generated answer is grounded in the provided documents.
+---
 
-📦 Installation
+# 📦 Installation
+
+```bash
 pip install -r requirements.txt
+```
 
-🔧 Environment Setup
+---
 
-Create a .env file:
+# 🔧 Environment Setup
 
+Create a `.env` file:
+
+```
 GROQ_API_KEY=your_api_key_here
+```
 
-🧪 Workflow 
+---
 
-Load URLs
+# 🧪 Workflow
 
-Extract text
+1. Load URLs
+2. Extract text
+3. Split into chunks
+4. Create embeddings
+5. Store in Chroma
+6. Retrieve top-k chunks
+7. LLM relevance grade
+8. Filter non-relevant chunks
+9. Generate final answer
+10. Run hallucination checker
 
-Split into chunks
+---
 
-Embed chunks
+# 📝 Output
 
-Store in Chroma
+Pipeline will produce:
 
-Retrieve relevant chunks
+* Retrieved documents
+* Relevance grading scores
+* Final validated answer
+* Hallucination detection result
 
-LLM grades each retrieved chunk
-
-Filter out irrelevant ones
-
-LLM generates a final answer
-
-Hallucination check validates it
-
-📝 Output 
-
-Retrieved documents
-
-Relevance scores
-
-Final generated answer
-
-Hallucination status
-
-Transparent, structured, and verifiable.
+---
